@@ -1,0 +1,259 @@
+.prime-x-section {
+  padding-left: 1rem;
+  padding-top: 2rem;
+}
+.orange-border {
+  width: 100%;
+  height: 439px;
+  background: #e5dbff 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  padding: 30px;
+  opacity: 1;
+}
+.img-pos{
+  position: absolute;
+  right: 50px;
+  bottom:10px
+}
+.white-border {
+  width: 100%;
+  height: 590px;
+  background: #fff 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  padding:50px 35px;
+  opacity: 1;
+}
+
+.orange-border-img-box {
+  background-image: url(../../assets/images/mockup1.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 110%;
+  background-size: 100%;
+  border-radius: 10px;
+}
+
+
+.mockup-img {
+  background-image: url(../../assets/images/mockup-2.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  background-size: cover;
+  border-radius: 10px;
+}
+
+.fore-ribbon-img {
+  background-image: url(../../assets/images/bg.jpeg);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  background-size: cover;
+  border-radius: 10px;
+}
+
+
+
+.primary-text {
+  text-align: left;
+  font: normal normal Quiet Sans;
+  letter-spacing: 0px;
+  color: #030389;
+  font-weight: 700;
+  opacity: 1;
+}
+
+.ribbon-area {
+  background-image: url(../../assets/images/line.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  height: 100%;
+  background-size: cover;
+  border-radius: 10px;
+}
+
+.coin-ribbon {
+  margin-top: -5rem;
+}
+
+.tetiary-text {
+  text-align: left;
+  font: normal normal Quiet Sans;
+  letter-spacing: 0px;
+  color: #000000;
+  font-weight: 700;
+  opacity: 1;
+  font-size: 40px;
+}
+
+.commercials {
+  padding-top: 80px;
+}
+
+.fore-dark-border {
+  width: 100%;
+  height: 100%;
+  padding: 55px;
+  background: #030389 !important;
+  border-radius: 10px;
+  opacity: 1;
+}
+
+.fore-lite-border {
+  height: 552px;
+  padding: 55px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  opacity: 1;
+}
+
+.spinner-bg {
+  background-image: url(../../assets/images/spinner.svg);
+  background-repeat: no-repeat;
+  background-position: top;
+  color: white;
+  background-size: cover;
+}
+
+.orange-text {
+  text-align: left;
+  font: normal normal Quiet Sans;
+  letter-spacing: 0px;
+  color: #edc006;
+  font-weight: 700;
+  font-size: 44px;
+  opacity: 1;
+}
+
+.download-btn {
+  background: #fff 0% 0% no-repeat padding-box;
+  opacity: 1;
+  border-radius: 5px;
+  width: 180px;
+  padding: 3.5px 10px;
+  outline: none;
+  border: 1px solid white;
+  color: #030389;
+}
+
+.download-btn-dark {
+  background: #000000 0% 0% no-repeat padding-box;
+  opacity: 1;
+  border-radius: 5px;
+  width: 180px;
+  padding: 3.5px 10px;
+  outline: none;
+  border: 1px solid #000000;
+  color: #e1e1e1;
+}
+
+.mockup-holder {
+  width: 100%;
+  height: 552px;
+  padding: 55px;
+  background: white;
+  border-radius: 10px;
+  opacity: 1;
+}
+
+.bell-community {
+  width: 20%;
+  margin-top: -10rem;
+}
+
+.community-btn{
+  margin-top: -4rem;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+
+.prime-community {
+  height: 509px;
+  background: #fff9dbd6 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  background-image: url(../../assets/images//eclipse.png);
+  padding: 30px;
+  opacity: 1;
+  width: 100%;
+}
+
+.prime-community-dark {
+  height: 509px;
+  background: #030389 0% 0% no-repeat padding-box;
+  color:white;
+  border-radius: 10px;
+  background-image: url(../../assets/images/eclipse-lite.svg);
+  padding: 30px;
+  opacity: 1;
+  width: 100%;
+}
+
+.communnity-input {
+  width: 614px;
+}
+
+@media screen and (max-width: 960px) {
+  .hero-container {
+    padding: 0px 40px;
+  }
+
+  .prime-x-section {
+    padding-top: 5rem;
+    padding-right: 1rem;
+  }
+  .small-text-dark {
+    font-size: 7.6px;
+    font-weight: 500;
+  }
+
+  .medium-text-dark {
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .primeX-area {
+    padding-top: 2rem;
+  }
+
+  .tetiary-text {
+    text-align: left;
+    font: normal normal Quiet Sans;
+    letter-spacing: 0px;
+    color: #000000;
+    font-weight: 700;
+    opacity: 1;
+    font-size: 30px;
+  }
+
+  .communnity-input {
+    width: 100%;
+  }
+
+  .commercials {
+    padding-top: 1px;
+  }
+
+  .community-btn{
+  margin-top: 2rem;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+
+
+  .bell-community {
+    width: 30%;
+
+    
+  }
+
+  .business-commercials {
+    padding-top: 4rem;
+  }
+
+  .primx-landing{
+    padding-top: 10rem;
+
+  }
+}

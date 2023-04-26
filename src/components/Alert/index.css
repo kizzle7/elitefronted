@@ -1,0 +1,30 @@
+.check {
+    width: 25px !important;
+    height: 25px !important;
+  }
+  .pop-title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .pop-text {
+    font-size: 14px;
+    line-height: 21px;
+    color: #5a5b6a;
+  }
+  
+  .Toastify__toast--error {
+    background: #e6d6d4 !important;
+  }
+  
+  .Toastify__toast--success {
+      background: #afc7bc!important;
+  
+    }
+  
+  .Toastify__toast {
+    border-radius: 10px !important;
+    height: max-content !important;
+  }
+  
+  

@@ -1,0 +1,55 @@
+.login-bg {
+    background:#ebecef;
+    height: 100vh;
+  }
+  .main-card-body {
+    padding: 0px 33px;
+  }
+  .logo-pos {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .flex-auth {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  label {
+    font-size: 14px;
+  }
+  .login-card {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    width: 550px;
+    opacity: 1;
+    padding: 80px 35px;
+  }
+  @media screen and (max-width: 960px) {
+    .login-mobile {
+      margin: 0 1rem;
+    }
+    .login-card {
+      background: #ffffff 0% 0% no-repeat padding-box;
+      border-radius: 10px;
+      width: 450px;
+      opacity: 1;
+      padding: 20px 30px;
+    }
+    .logo-pos {
+      display: flex;
+      flex-direction: column;
+    }
+    .flex-auth {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .register-card {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    width: 550px;
+    opacity: 1;
+    padding: 30px 35px;
+  }

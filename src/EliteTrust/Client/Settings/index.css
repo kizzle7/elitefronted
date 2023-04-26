@@ -1,0 +1,100 @@
+.profile-border {
+  border-top: 1px solid #ebecef;
+  border-left: 1px solid #ebecef;
+  border-right: 1px solid #ebecef;
+  border-bottom: 0px;
+  border-radius: 10px;
+}
+.profile-side {
+  background: #f9f9fa;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 0px;
+  padding: 35px 20px;
+  height: 100vh;
+  border: 1px solid #ebecef;
+}
+
+.actual-img {
+  background-image: url(../../../assets/elite/btc-dark.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+}
+
+.content-pro {
+  background: #fff;
+  padding: 25px 0px;
+  height: 100vh;
+}
+
+.pic-circle {
+  height: 120px;
+  width: 120px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.pic-circle-out {
+  height: 130px;
+  width: 130px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid #d9dbe0;
+}
+
+.mobile-set {
+  display: none !important;
+}
+.web-set {
+  display: block !important;
+}
+
+.form-settings {
+  width: 40%;
+}
+
+.active-mennu {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  align-items: center;
+  cursor: pointer;
+  color: #3b3b3b;
+}
+
+.non-active {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  cursor: pointer;
+  align-items: center;
+  color: #667085;
+}
+
+@media screen and (min-width: 599px) {
+  .mobile-set {
+    display: block !important;
+  }
+  .web-set {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .form-settings {
+    width: 100%;
+  }
+
+  .mobile-set {
+    display: none !important;
+  }
+  .web-set {
+    display: block !important;
+  }
+}

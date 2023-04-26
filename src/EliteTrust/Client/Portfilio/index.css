@@ -1,0 +1,29 @@
+.pos-port {
+  position: absolute;
+  top: 47px;
+  right: 15px;
+}
+
+.info-border {
+  height: 5px;
+  border: 3px solid #3498db;
+  background-color: #3498db;
+  border-radius: 10px;
+  width: 140px;
+}
+
+.warning-border {
+  height: 5px;
+  border: 3px solid #f4be37;
+  background-color: #f4be37;
+  border-radius: 10px;
+  width: 100px;
+}
+
+
+.invest-card-port {
+    background: #ffffff;
+    border: 1px solid #ebecef;
+    border-radius: 10px;
+    padding: 4px 5px;
+  }

@@ -1,0 +1,189 @@
+.invest-card {
+  background: #ffffff;
+  border: 1px solid #ebecef;
+  border-radius: 10px;
+  height: 200px;
+}
+
+.drk-card {
+  padding: 20px;
+  color: white;
+}
+
+.btn-white {
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 8px 30px;
+  cursor: pointer;
+  color: white;
+}
+
+.invest-cardB {
+  border: 1px solid #ebecef;
+  background: #000000;
+  border-radius: 10px;
+  height: 200px;
+}
+
+.flex-system-invest {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+.pos-up {
+  position: absolute;
+  top: 47px;
+  right: 15px;
+}
+
+.invest-area {
+  padding: 0px 20px 10px 20px;
+}
+
+.port-card {
+  height: 100px !important;
+}
+
+.mute-text {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 120%;
+  display: flex;
+  align-items: center;
+  color: #667085;
+}
+
+.crypto-black {
+  height: 35px;
+  background: #000000;
+  padding: 3px 40px;
+  /* Foundation /grey/G0 */
+  font-weight: 300;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  color: white;
+}
+
+sup {
+  font-size: 14px;
+}
+
+.f-img {
+  height: 200px;
+}
+
+.mutual-dark {
+  height: 35px;
+  background: #ebecef;
+  padding: 3px 40px;
+  border: 1px solid #ebecef;
+  font-weight: 300;
+  border-radius: 10px;
+  color: #9299a8;
+}
+
+.card-inv {
+  background: #ffffff;
+  height: 235px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.white-market {
+  height: 55px;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 0px 15px;
+}
+
+.mute-border-light {
+  background: #f9f9fa;
+  border-radius: 8px;
+  padding: 13px;
+}
+.mute-head {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 22px;
+  color: #667085;
+}
+
+.invest-market {
+  background: #f9f9fa;
+  border-radius: 10px;
+  height: 660px;
+  padding: 30px 30px;
+}
+
+.invest-num {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 120%;
+  /* identical to box height, or 29px */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #000000;
+}
+
+.stat-card {
+  border-radius: 10px;
+  border: 1px solid #ebecef;
+  height: 400px;
+  margin-top: 2rem;
+}
+
+.p-payout{
+  padding:10px
+}
+
+@media screen and (max-width: 960px) {
+  .drk-card {
+    padding:15px 20px;
+    color: white;
+  }
+  .invest-card {
+    background: #ffffff;
+    margin-top: 1rem;
+    border: 1px solid #ebecef;
+    border-radius: 10px;
+    height: 200px;
+  }
+
+  .invest-market {
+    background: #f9f9fa;
+    margin-top: 1rem;
+    border-radius: 10px;
+    height: 100%;
+    padding: 20px 10px;
+  }
+
+  .flex-system-invest {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+  
+  .mute-head {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    color: #667085;
+    margin-top: 1rem;
+  }
+
+  .p-payout{
+    padding:3px
+  }
+
+  .pos-up {
+    position: absolute;
+    top: 47px;
+    left: 230px;
+  }
+  
+  
+  
+}

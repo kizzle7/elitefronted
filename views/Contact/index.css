@@ -1,0 +1,26 @@
+.fore-dark-bg {
+    width: 100%;
+    height: 100%;
+    padding: 55px;
+    background: #030389;
+    border-radius: 10px;
+    opacity: 1;
+    color:white;
+  }
+
+  .fore-dark-bg p{
+    font-family: Quiet Sans;
+    font-size: 18px;
+  }
+
+  .contact-top{
+    margin-top:3rem
+  }
+
+
+  #circle {
+    background: #32329F;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}

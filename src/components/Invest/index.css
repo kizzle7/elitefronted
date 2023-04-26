@@ -1,0 +1,12 @@
+.warn-border {
+  background: #fffaf0;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.summary-border {
+  background: #f9f9fa;
+  border-radius: 10px;
+  padding: 30px 15px;
+}

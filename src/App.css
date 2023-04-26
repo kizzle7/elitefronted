@@ -1,0 +1,6 @@
+.validate-error{
+    color: red;
+    font-size: 12px;
+    font-weight: 300;
+    padding-bottom: 2rem;
+}

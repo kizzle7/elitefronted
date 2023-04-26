@@ -1,0 +1,27 @@
+.card-line-border {
+  background: #ffffff;
+  border: 1px solid #ebecef;
+  border-radius: 10px;
+  padding: 30px 20px;
+}
+
+.inv-lead- {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  /* identical to box height, or 138% */
+  display: flex;
+  align-items: center;
+
+  /* Foundation /black/B700 */
+
+  color: #1c1c1c;
+}
+
+.btn-white-gry {
+  border: 1px solid #ebecef;
+  border-radius: 10px;
+  padding: 8px 30px;
+  cursor: pointer;
+  color:  black;
+}
