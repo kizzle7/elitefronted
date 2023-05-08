@@ -19,6 +19,9 @@ import MyComponent from "react-fullpage-custom-loader";
 export default function Index(props) {
   const [data, setData] = useState(false);
   const [load, setLoad] = useState(false);
+  const [totalPortfolio, setTotalPortfolio] = useState(0);
+  const [cryptoPortfolio, setCryptoPortfolio] = useState(0);
+  const [mutualPortfolio, setMutualPortfolio] = useState(0);
 
   const getInvestment = () => {
     axios
@@ -34,6 +37,20 @@ export default function Index(props) {
         setLoad(false);
         if (res.data) {
           setData(res.data.myinvtesments);
+          setTotalPortfolio(
+            res.data.myinvtesments.reduce(
+              (n, { potentialAmt }) => n + parseInt(potentialAmt),
+              0
+            )
+          );
+          let crytpo = res.data?.myinvtesments.filter(
+            (a) => a.invest_type === "Crypto"
+          );
+          let mutual = res.data?.myinvtesments.filter(
+            (a) => a.invest_type === "Mutual"
+          );
+          setCryptoPortfolio(crytpo.reduce((n, { potentialAmt }) => n + parseInt(potentialAmt), 0));
+          setMutualPortfolio(mutual.reduce((n, { potentialAmt }) => n + parseInt(potentialAmt), 0));
         }
       })
       .catch((err) => {
@@ -66,9 +83,9 @@ export default function Index(props) {
                   <small>Portfolio balance</small>
                   <div className="d-flex pt-2 justify-content-center align-items-center">
                     <h4 className="pt-1">
-                      $50,000
+                      ${totalPortfolio}
                       <span>
-                        <sup>05</sup>
+                        <sup>00</sup>
                       </span>
                     </h4>
                     <small style={{ color: "#4BA582" }}>+ 200.00 (20%) </small>
@@ -78,12 +95,12 @@ export default function Index(props) {
                     <div>
                       <small>Btc</small>
                       <div className="info-border"></div>
-                      <small>$49,600.00 (+$300.00)</small>
+                      <small>${cryptoPortfolio} (+$300.00)</small>
                     </div>
                     <div className="ml-3">
                       <small>Mutual fund</small>
                       <div className="warning-border"></div>
-                      <small>$49,600.00 (+$300.00)</small>
+                      <small>${mutualPortfolio} (+$300.00)</small>
                     </div>
                   </div>
                 </div>
@@ -134,9 +151,9 @@ export default function Index(props) {
                               +0.27
                             </div>
                           </div>
-                          <div className="pt-4">
-                            <div>
-                              Status : {dt?.status}
+                          <div className="pt-4 d-flex align-items-center">
+                            <div> Status :</div>
+                            <div className="pl-2">
                               {
                                 {
                                   Growing: (

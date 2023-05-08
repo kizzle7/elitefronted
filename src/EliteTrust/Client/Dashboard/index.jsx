@@ -39,6 +39,8 @@ export default function Index(props) {
       .catch((err) => {});
   };
 
+  
+
   useEffect(() => {
     getPlans();
     getUser();

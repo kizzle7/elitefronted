@@ -91,11 +91,11 @@ const Fund = ({ open, setOpen, investType }) => {
     });
 
   const getConversion = (e) => {
-    const amt = e.target.value * investType?.percent * investType?.no_of_days;
+    const amt = (e.target.value * investType?.percent) / 100;
     setPostAmt(amt);
   };
 
-  const totalAmt = postAmt / 100 + parseInt(amount);
+  const totalAmt = postAmt + parseInt(amount);
 
   const onInvest = () => {
     setLoad(true);
@@ -108,8 +108,8 @@ const Fund = ({ open, setOpen, investType }) => {
           amount: amount,
           invest_type: investType?.invest_type,
           potentialAmt: totalAmt,
-          invest_days:parseInt(investType?.no_of_days),
-          profit: postAmt / 100,
+          invest_days: parseInt(investType?.no_of_days),
+          profit: postAmt,
           id: sessionStorage.getItem("user_id"),
         },
         {
@@ -194,30 +194,40 @@ const Fund = ({ open, setOpen, investType }) => {
             {...register("amount", {
               required: "Please input amount you want to fund",
               onChange: getConversion,
+              min: {
+                value: investType?.min,
+                message: `Amount cannot be lower than ${investType?.min}`,
+              },
+              max: {
+                value: investType?.max,
+                message: `Ammount cannot be higher than ${investType?.max}`,
+              },
             })}
           />
           <Error errorName={errors.amount} />
           <br />
-          <div className="summary-border pt-2">
-            <div>profit calculator</div>
-            <br />
-            <div className="d-flex justify-content-between align-items-center">
-              <div>Amount:</div>
-              <div>{amount}</div>
-            </div>
-            <br />
-            <div className="d-flex justify-content-between align-items-center">
-              <div>Potential returns:</div>
-              <div> ${postAmt ? postAmt / 100 : 0}</div>
-            </div>
-            <br />
-            <div className="d-flex justify-content-between align-items-center">
-              <div>Potential profit:</div>
-              <div>
-                ${amount} - ${totalAmt ? totalAmt : 0}
+          {Object.keys(errors).length === 0 && (
+            <div className="summary-border pt-2">
+              <div>profit calculator</div>
+              <br />
+              <div className="d-flex justify-content-between align-items-center">
+                <div>Amount:</div>
+                <div>{amount}</div>
+              </div>
+              <br />
+              <div className="d-flex justify-content-between align-items-center">
+                <div>Potential returns:</div>
+                <div> ${postAmt ? postAmt : 0}</div>
+              </div>
+              <br />
+              <div className="d-flex justify-content-between align-items-center">
+                <div>Potential profit:</div>
+                <div>
+                  ${amount} - ${totalAmt ? totalAmt : 0}
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           <br />
           <br />
