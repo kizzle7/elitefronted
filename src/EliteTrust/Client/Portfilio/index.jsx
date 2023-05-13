@@ -49,14 +49,30 @@ export default function Index(props) {
           let mutual = res.data?.myinvtesments.filter(
             (a) => a.invest_type === "Mutual"
           );
-          setCryptoPortfolio(crytpo.reduce((n, { potentialAmt }) => n + parseInt(potentialAmt), 0));
-          setMutualPortfolio(mutual.reduce((n, { potentialAmt }) => n + parseInt(potentialAmt), 0));
+          setCryptoPortfolio(
+            crytpo.reduce(
+              (n, { potentialAmt }) => n + parseInt(potentialAmt),
+              0
+            )
+          );
+          setMutualPortfolio(
+            mutual.reduce(
+              (n, { potentialAmt }) => n + parseInt(potentialAmt),
+              0
+            )
+          );
         }
       })
       .catch((err) => {
         setLoad(false);
       });
   };
+
+  const formatDec = (num, decimals) =>
+    num.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
 
   useEffect(() => {
     getInvestment();
@@ -83,24 +99,24 @@ export default function Index(props) {
                   <small>Portfolio balance</small>
                   <div className="d-flex pt-2 justify-content-center align-items-center">
                     <h4 className="pt-1">
-                      ${totalPortfolio}
+                      ${formatDec(totalPortfolio)}
                       <span>
                         <sup>00</sup>
                       </span>
                     </h4>
-                    <small style={{ color: "#4BA582" }}>+ 200.00 (20%) </small>
+                    <small style={{ color: "#4BA582" }}>+ 000.00 (0%) </small>
                   </div>
 
                   <div className="d-flex mt-2 justify-content align-items-center">
                     <div>
                       <small>Btc</small>
                       <div className="info-border"></div>
-                      <small>${cryptoPortfolio} (+$300.00)</small>
+                      <small>${formatDec(cryptoPortfolio)} (+$00.00)</small>
                     </div>
                     <div className="ml-3">
                       <small>Mutual fund</small>
                       <div className="warning-border"></div>
-                      <small>${mutualPortfolio} (+$300.00)</small>
+                      <small>${formatDec(mutualPortfolio)} (+$000.00)</small>
                     </div>
                   </div>
                 </div>
@@ -141,10 +157,10 @@ export default function Index(props) {
                             </div>
                           </div>
                           <div className="pt-2 invest-num">
-                            ${dt?.potentialAmt}
+                            ${formatDec(dt?.potentialAmt)} 
                           </div>
                           <div className="d-flex pt-4 justify-content-between align-items-center">
-                            <div>${dt?.amount}</div>
+                            <div>${formatDec(dt?.amount)}</div>
                             <div
                               style={{ color: "#896AB9", fontWeight: "bold" }}
                             >

@@ -1,5 +1,5 @@
 export default {
-    baseUrl: 'https://bootong-api.herokuapp.com/api/'
+    baseUrl: 'http://localhost:5001/api/'
   };
    
   
