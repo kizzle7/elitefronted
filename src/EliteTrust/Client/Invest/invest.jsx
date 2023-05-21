@@ -59,7 +59,7 @@ export default function Index(props) {
   const onSelectInvest = (type) => {
     setOpenInvest(true);
     setInvestType(type);
-    console.log(type)
+    console.log(type);
   };
 
   return (
@@ -92,16 +92,21 @@ export default function Index(props) {
             return (
               <div className="col-md-4 col-12 mb-5">
                 <div className="card-line-border">
-                  <img
-                  
-                    src={
-                      {
-                        "Gold Plan": Btc,
-                        "Diamond Plan": BtcPurple,
-                        "Silver Plan": BtcBlack,
-                      }[dt?.name]
-                    }
-                  />
+                  <div className="d-flex justify-content-between align-items-center">
+                    <img
+                      src={
+                        {
+                          Gold: Btc,
+                          Diamond: BtcPurple,
+                          Silver: BtcBlack,
+                          Sapphaire: BtcBlack,
+                          Emrald: BtcBlack,
+                          Pearl: BtcBlack,
+                        }[dt?.name]
+                      }
+                    />
+                    <div>{dt?.invest_type} Funds</div>
+                  </div>
                   <div className="pt-3">
                     <div className="d-flex justify-content-between align-items-center">
                       <div className="inv-lead-">{dt.name}</div>
@@ -138,7 +143,6 @@ export default function Index(props) {
                     text="Invest now
                     "
                     onClick={onSelectInvest.bind(this, dt)}
-
                     style={{ borderRadius: "5px" }}
                     className="dark w-100"
                   />
@@ -153,15 +157,21 @@ export default function Index(props) {
             return (
               <div className="col-md-4 col-12 mb-5">
                 <div className="card-line-border">
-                  <img
-                    src={
-                      {
-                        "Gold Plan": mGold,
-                        "Diamond Plan": mPurple,
-                        "Silver Plan": mBlack,
-                      }[dt?.name]
-                    }
-                  />
+                  <div className="d-flex justify-content-between align-items-center">
+                    <img
+                      src={
+                        {
+                          Gold: mGold,
+                          Diamond: mPurple,
+                          Silver: mBlack,
+                          Sapphaire: BtcBlack,
+                          Emrald: BtcBlack,
+                          Pearl: BtcBlack,
+                        }[dt?.name]
+                      }
+                    />
+                    <div>{dt?.invest_type} Funds</div>
+                  </div>
                   <div className="pt-3">
                     <div className="d-flex justify-content-between align-items-center">
                       <div className="inv-lead-">{dt.name}</div>
@@ -209,7 +219,9 @@ export default function Index(props) {
         <InvestDrawer
           open={openInvest}
           setOpen={setOpenInvest}
+          load={load}
           investType={investType}
+          setLoad={setLoad}
         />
       </DashboardContainer>
     </div>

@@ -27,12 +27,13 @@ const SideBar = () => {
   const history = useHistory();
 
   const toggle = () => setIsOpen(!isOpen);
+  const role = sessionStorage.getItem("is_Admin");
 
   const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
-    sessionStorage.setItem('token','')
-    sessionStorage.setItem('user_id','')
+    sessionStorage.setItem("token", "");
+    sessionStorage.setItem("user_id", "");
     history.push("/login");
   };
 
@@ -55,24 +56,28 @@ const SideBar = () => {
                 <span className="ml-3 nav-link-menu">Dashboard</span>
               </NavLink>
             </NavItem>
-            <NavItem className="nav-hover">
-              <NavLink
-                className="nav-link pl-0 ml-4 d-flex align-item-center"
-                href="/wallet"
-              >
-                <img src={Wallet} width="20" />
-                <span className="ml-3 nav-link-menu">Wallet</span>
-              </NavLink>
-            </NavItem>
-            <NavItem className="nav-hover">
-              <NavLink
-                className="nav-link pl-0 ml-4 d-flex align-item-center"
-                href="/port-folio"
-              >
-                <img src={Activity} width="20" />
-                <span className="ml-3 nav-link-menu">Portfolio</span>
-              </NavLink>
-            </NavItem>
+            {role === "false" && (
+              <NavItem className="nav-hover">
+                <NavLink
+                  className="nav-link pl-0 ml-4 d-flex align-item-center"
+                  href="/wallet"
+                >
+                  <img src={Wallet} width="20" />
+                  <span className="ml-3 nav-link-menu">Wallet</span>
+                </NavLink>
+              </NavItem>
+            )}
+            {role === "false" && (
+              <NavItem className="nav-hover">
+                <NavLink
+                  className="nav-link pl-0 ml-4 d-flex align-item-center"
+                  href="/port-folio"
+                >
+                  <img src={Activity} width="20" />
+                  <span className="ml-3 nav-link-menu">Portfolio</span>
+                </NavLink>
+              </NavItem>
+            )}
             <NavItem className="nav-hover">
               <NavLink
                 className="nav-link pl-0 ml-4 d-flex align-item-center"
@@ -82,30 +87,46 @@ const SideBar = () => {
                 <span className="ml-3 nav-link-menu">Invest</span>
               </NavLink>
             </NavItem>
-
-            <div className="set-part">
+            {role === "true" && (
               <NavItem className="nav-hover">
                 <NavLink
                   className="nav-link pl-0 ml-4 d-flex align-item-center"
-                  href="/profile"
+                  href="/users"
                 >
-                  <img src={Settings} width="16" />
-                  <span className="ml-3 nav-link-menu">Settings</span>
+                  <img src={Union} width="16" />
+                  <span className="ml-3 nav-link-menu">Users</span>
                 </NavLink>
               </NavItem>
-              <NavItem className="">
-                <NavLink
-                  className="nav-link pl-0 ml-4 d-flex align-item-center"
-                  onClick={logout}
-                  style={{cursor: 'pointer'}}
-                >
-                  <img src={Settings} width="16" />
-                  <span className="ml-3 nav-link-menu" style={{ color: "red" }}>
-                    Log Out
-                  </span>
-                </NavLink>
-              </NavItem>
-            </div>
+            )}
+
+              <div className="set-part">
+                <NavItem className="nav-hover">
+                  <NavLink
+                    className="nav-link pl-0 ml-4 d-flex align-item-center"
+                    href="/profile"
+                  >
+                    <img src={Settings} width="16" />
+                    <span className="ml-3 nav-link-menu">Settings</span>
+                  </NavLink>
+                </NavItem>
+
+                <NavItem className="">
+                  <NavLink
+                    className="nav-link pl-0 ml-4 d-flex align-item-center"
+                    onClick={logout}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <img src={Settings} width="16" />
+                    <span
+                      className="ml-3 nav-link-menu"
+                      style={{ color: "red" }}
+                    >
+                      Log Out
+                    </span>
+                  </NavLink>
+                </NavItem>
+              </div>
+            
           </Nav>
         </Collapse>
       </nav>

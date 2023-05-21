@@ -38,8 +38,9 @@ export default function Index(props) {
           success("Success!", "Login Successful!");
           sessionStorage.setItem("token", res.data.user?.token);
           sessionStorage.setItem('user_id', res.data.user?.id)
+          sessionStorage.setItem('is_Admin', res.data.user?.isAdmin)
           setTimeout(() => {
-            history.push("/dashboard");
+            window.location.href = "/dashboard";
           }, 1000);
         } else {
           error("Error!", "Something went wrong");

@@ -11,9 +11,10 @@ import gallery from "../../../assets/elite/hg.svg";
 import Camera from "../../../assets/elite/Camera.svg";
 import { Uploader } from "uploader"; // Installed by "react-uploader".
 import { UploadButton } from "react-uploader";
-import config from "../../../config"
-import axios from 'axios'
+import config from "../../../config";
+import axios from "axios";
 import MyComponent from "react-fullpage-custom-loader";
+import { success, error } from "../../../components/Alert";
 
 export default function Index(props) {
   const {
@@ -31,7 +32,18 @@ export default function Index(props) {
   const [third, setThird] = useState(false);
   const [userDetails, setUserDetails] = useState({});
   const [load, setLoad] = useState(false);
-
+  const [imgUrl, setImgUrl] = useState(null);
+  const address = watch("address");
+  const state = watch("state");
+  const city = watch("city");
+  const country = watch("country");
+  const identityType = watch("identityType");
+  const identityImage = watch("identityImage");
+  const accName = watch("accName");
+  const accNum = watch("accNum");
+  const accType = watch("accType");
+  const bankName = watch("bankName");
+  const routing = watch("routing");
   const uploader = Uploader({
     apiKey: "free", // Get production API keys from Upload.io
   });
@@ -49,10 +61,114 @@ export default function Index(props) {
         setLoad(false);
         if (res.data.userInfo) {
           setUserDetails(res.data.userInfo);
-          setValue('email', res.data.userInfo?.email)
-          setValue('name', res.data.userInfo?.name)
-          setValue('phone', res.data.userInfo?.phone)
+          setValue("email", res.data.userInfo?.email);
+          setValue("name", res.data.userInfo?.name);
+          setValue("phone", res.data.userInfo?.phone);
+          setValue("address", res.data.userInfo.address);
+          setValue("city", res.data.userInfo.city);
+          setValue("country", res.data.userInfo.country);
+          setValue("state", res.data.userInfo.state);
+          setValue("bankName", res.data.userInfo.bankName);
+          setValue("accName", res.data.userInfo.name);
+          setValue("accNum", res.data.userInfo.accNum);
+          setValue("accType", res.data.userInfo.accType);
+          setValue("routing", res.data.userInfo.routing);
+        }
+      })
+      .catch((err) => {
+        setLoad(false);
+      });
+  };
 
+  const updateKyc = (e) => {
+    e.preventDefault();
+    if (imgUrl && identityType) {
+      setLoad(true);
+      axios
+        .put(
+          `${config.baseUrl}user/kyc/${sessionStorage.getItem("user_id")}`,
+          {
+            identityImage: imgUrl,
+            identityType,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+          }
+        )
+        .then((res) => {
+          setLoad(false);
+          if (res.data.userUpdate) {
+            success("Success", "KYC information updated successfully");
+            getUser();
+          }
+        })
+        .catch((err) => {
+          setLoad(false);
+        });
+    } else {
+      error("Error", "Fields are required");
+    }
+  };
+
+  const updateAcc = (e) => {
+    e.preventDefault();
+    if (accNum && routing && accType && bankName) {
+      setLoad(true);
+      axios
+        .put(
+          `${config.baseUrl}user/acc/${sessionStorage.getItem("user_id")}`,
+          {
+            accNum,
+            routing,
+            accType,
+            bankName,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+          }
+        )
+        .then((res) => {
+          setLoad(false);
+          if (res.data.userUpdate) {
+            success("Success", "Bank Account information updated successfully");
+            getUser();
+          }
+        })
+        .catch((err) => {
+          setLoad(false);
+        });
+    } else {
+      error("Error", "Fields are all required");
+    }
+  };
+
+  const updateBasic = (e) => {
+    e.preventDefault();
+    setLoad(true);
+    axios
+      .put(
+        `${config.baseUrl}user/${sessionStorage.getItem("user_id")}`,
+        {
+          country,
+          address,
+          city,
+          state,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((res) => {
+        setLoad(false);
+        if (res.data.userUpdate) {
+          success("Success", "User information updated successfully");
+          getUser();
         }
       })
       .catch((err) => {
@@ -61,8 +177,8 @@ export default function Index(props) {
   };
 
   useEffect(() => {
-    getUser()
-  },[])
+    getUser();
+  }, []);
 
   return (
     <div>
@@ -208,6 +324,7 @@ export default function Index(props) {
                                   label="Address "
                                   placeholder="enter your address"
                                   className="w-100"
+                                  disabled={userDetails?.address ? true : false}
                                   style={{ width: "500px" }}
                                   {...register("address", {
                                     required: "Please input valid address",
@@ -215,34 +332,35 @@ export default function Index(props) {
                                 />
                                 <Error errorName={errors.address} />
                               </div>
-                              <div className="mb-3 d-flex justify-content-between align-items-center">
-                                <div>
-                                  <Input
-                                    label="City"
-                                    placeholder="Select city"
-                                    className="w-100"
-                                    {...register("city", {
-                                      required: "Please input city",
-                                    })}
-                                  />
-                                  <Error errorName={errors.city} />
-                                </div>
-                                <div>
-                                  <Input
-                                    label="State"
-                                    placeholder="Select state"
-                                    className="w-100"
-                                    {...register("state", {
-                                      required: "Please input phone number",
-                                    })}
-                                  />
-                                  <Error errorName={errors.state} />
-                                </div>
+                              <div className="mb-3">
+                                <Input
+                                  label="City"
+                                  placeholder="Select city"
+                                  className="w-100"
+                                  disabled={userDetails?.city ? true : false}
+                                  {...register("city", {
+                                    required: "Please input city",
+                                  })}
+                                />
+                                <Error errorName={errors.city} />
+                              </div>
+                              <div className="mb-3">
+                                <Input
+                                  label="State"
+                                  placeholder="Select state"
+                                  className="w-100"
+                                  disabled={userDetails?.state ? true : false}
+                                  {...register("state", {
+                                    required: "Please input state",
+                                  })}
+                                />
+                                <Error errorName={errors.state} />
                               </div>
 
                               <div className="mb-3">
                                 <Input
                                   label="Country "
+                                  disabled={userDetails?.country ? true : false}
                                   placeholder="Select country"
                                   className="w-100"
                                   style={{ width: "500px" }}
@@ -251,13 +369,16 @@ export default function Index(props) {
                                   })}
                                 />
                                 <Error errorName={errors.country} />
-                                <br />
+                              </div>
+                              <br />
+                              {!userDetails?.address && (
                                 <Button
                                   text="Submit"
+                                  onClick={updateBasic}
                                   style={{ borderRadius: "5px" }}
-                                  className="dark w-100"
+                                  className="dark mt-2 w-100"
                                 />
-                              </div>
+                              )}
                             </form>
                           </div>
                         </div>
@@ -266,68 +387,184 @@ export default function Index(props) {
 
                     {second && (
                       <div className="d-flex justify-content-center align-items-center">
-                        <div>
+                        {!userDetails?.identityType && (
                           <div>
-                            <img src={globe} />
+                            <div>
+                              <img src={globe} />
+                            </div>
+                            <br />
+                            <div>Upload a document</div>
+                            <br />
+                            <div className="form-group pt-2">
+                              <label
+                                className="d-block pb-2 text-dark"
+                                style={{ color: "#344054", fontWeight: 600 }}
+                              >
+                                Select identity type
+                              </label>
+                              <select
+                                className="select-card w-100"
+                                {...register("identityType", {
+                                  required: "Please select the indetity type",
+                                })}
+                              >
+                                <option>Select</option>
+                                <option>Driver License</option>
+                                <option>SSN</option>
+                                <option>International passport</option>
+                              </select>
+                              <Error errorName={errors.identityType} />
+                            </div>
+                            <br />
+                            <br />
+                            {!imgUrl ? (
+                              <UploadButton
+                                uploader={uploader}
+                                options={options}
+                                onComplete={(files) =>
+                                  setImgUrl(files[0].originalFile.fileUrl)
+                                }
+                              >
+                                {({ onClick }) => (
+                                  <div onClick={onClick} className="upload-ch">
+                                    <div className="d-flex justify-content-center align-items-center">
+                                      <div>
+                                        <div className="text-center pt-1">
+                                          <img src={gallery} />
+                                        </div>
+                                        <div>
+                                          <span style={{ colo: "#6941C6" }}>
+                                            Click to upload{" "}
+                                          </span>{" "}
+                                          or drag and drop <br /> SVG, PNG, JPG
+                                          or GIF (max. 800x400px)
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
+                              </UploadButton>
+                            ) : (
+                              <div>
+                                <div
+                                  className="text-right text-danger font-weigh"
+                                  style={{ cursor: "pointer" }}
+                                  onClick={() => {
+                                    setImgUrl(null);
+                                  }}
+                                >
+                                  Change Image
+                                </div>
+                                <img src={imgUrl} className="w-50" />
+                                <br />
+                              </div>
+                            )}
+                            <br />
+                            <br />
+                            {!userDetails?.identityType && (
+                              <Button
+                                text="Submit for review"
+                                style={{ borderRadius: "5px" }}
+                                onClick={updateKyc}
+                                className="dark w-100"
+                              />
+                            )}
+                          </div>
+                        )}
+                        {userDetails?.identityType && (
+                          <div>
+                            <br />
+                            <p className="text-danger">
+                              Uploaded kyc information currently in review
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    {third && (
+                      <div className="d-flex justify-content-center align-items-between">
+                        <form className="form-settings">
+                          <div className="mb-3">
+                            <Input
+                              label="Account Name "
+                              placeholder="enter your address"
+                              className="w-100"
+                              disabled={true}
+                              style={{ width: "500px" }}
+                              {...register("accName", {
+                                required: "Please input account name",
+                              })}
+                            />
+                            <Error errorName={errors.accName} />
+                          </div>
+                          <div className="mb-3">
+                            <Input
+                              label="Account Number"
+                              className="w-100"
+                              disabled={userDetails?.accNum ? true : false}
+                              {...register("accNum", {
+                                required: "Please input Account Number",
+                              })}
+                            />
+                            <Error errorName={errors.accNum} />
+                          </div>
+                          <div className="mb-3"></div>
+
+                          <div className="Routing Number">
+                            <Input
+                              label="Routing Number "
+                              disabled={userDetails?.routing ? true : false}
+                              className="w-100"
+                              style={{ width: "500px" }}
+                              {...register("routing", {
+                                required: "Please input routing number",
+                              })}
+                            />
+                            <Error errorName={errors.routing} />
                           </div>
                           <br />
-                          <div>Upload a document</div>
+                          <div className="Bank Name">
+                            <Input
+                              label="Bank Name "
+                              disabled={userDetails?.bankName ? true : false}
+                              className="w-100"
+                              style={{ width: "500px" }}
+                              {...register("bankName", {
+                                required: "Please input bank name",
+                              })}
+                            />
+                            <Error errorName={errors.bankName} />
+                          </div>
                           <br />
-                          <div className="form-group pt-2">
+                          <div className="form-group">
                             <label
                               className="d-block pb-2 text-dark"
-                              style={{ color: "#344054", fontWeight: 600 }}
+                              style={{
+                                color: "#344054",
+                                fontWeight: 600,
+                              }}
                             >
-                              Select identity type
+                              Select Account Type
                             </label>
                             <select
                               className="select-card w-100"
-                              {...register("cardType", {
-                                required: "Please select the indetity type",
+                              {...register("accType", {
+                                required: "Please select the giftcard type",
                               })}
                             >
                               <option>Select</option>
-                              <option>Driver License</option>
-                              <option>NIN</option>
-                              <option>International passport</option>
+                              <option>Checkings</option>
+                              <option>Savings</option>
                             </select>
+                            <Error errorName={errors.accType} />
                           </div>
-                          <br />
-                          <br />
-                          <UploadButton
-                            uploader={uploader}
-                            options={options}
-                            onComplete={(files) =>
-                              alert(files.map((x) => x.fileUrl).join("\n"))
-                            }
-                          >
-                            {({ onClick }) => (
-                              <div onClick={onClick} className="upload-ch">
-                                <div className="d-flex justify-content-center align-items-center">
-                                  <div>
-                                    <div className="text-center pt-1">
-                                      <img src={gallery} />
-                                    </div>
-                                    <div>
-                                      <span style={{ colo: "#6941C6" }}>
-                                        Click to upload{" "}
-                                      </span>{" "}
-                                      or drag and drop <br /> SVG, PNG, JPG or
-                                      GIF (max. 800x400px)
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            )}
-                          </UploadButton>
-                          <br />
-                          <br />
                           <Button
-                            text="Submit for review"
+                            text="Submit"
+                            onClick={updateAcc}
                             style={{ borderRadius: "5px" }}
-                            className="dark w-100"
+                            className="dark mt-2 w-100"
                           />
-                        </div>
+                        </form>
                       </div>
                     )}
                   </div>

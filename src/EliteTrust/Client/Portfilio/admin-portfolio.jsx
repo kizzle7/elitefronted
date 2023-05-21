@@ -143,19 +143,19 @@ export default function Index(props) {
                         <sup>00</sup>
                       </span>
                     </h4>
-                    <small style={{ color: "#4BA582" }}>+ ({formatDec(totalPortfolio/1000)}) </small>
+                    <small style={{ color: "#4BA582" }}>+ 000.00 (0%) </small>
                   </div>
 
                   <div className="d-flex mt-2 justify-content align-items-center">
                     <div>
-                      <small>Crypto</small>
+                      <small>Btc</small>
                       <div className="info-border"></div>
-                      <small>${formatDec(cryptoPortfolio)} ({formatDec(cryptoPortfolio/1000)})</small>
+                      <small>${formatDec(cryptoPortfolio)} (+$00.00)</small>
                     </div>
                     <div className="ml-3">
                       <small>Mutual fund</small>
                       <div className="warning-border"></div>
-                      <small>${formatDec(mutualPortfolio)} ({formatDec(mutualPortfolio)/1000})</small>
+                      <small>${formatDec(mutualPortfolio)} (+$000.00)</small>
                     </div>
                   </div>
                 </div>
@@ -203,7 +203,7 @@ export default function Index(props) {
                             <div
                               style={{ color: "#896AB9", fontWeight: "bold" }}
                             >
-                              +{formatDec(dt?.potentialAmt / 1000)}
+                              +0.27
                             </div>
                           </div>
                           <div className="pt-4 d-flex align-items-center">

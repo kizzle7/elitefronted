@@ -7,17 +7,33 @@ import Profile from "../EliteTrust/Client/Settings";
 import Login from "../EliteTrust/Auth/Login";
 import Register from "../EliteTrust/Auth/Register";
 
+import AdminDash from "../EliteTrust/Client/Dashboard/admin-dashboard";
+import PortfolioAdmin from "../EliteTrust/Client/Invest/admin-invest";
+import Users from "../EliteTrust/Client/Wallett/users";
+
 export default function AppRouter(props) {
+  const role = sessionStorage.getItem("is_Admin");
+  console.log(role);
   return (
     <Router>
       <Switch>
-        <Route path="/dashboard" exact component={Landing} />
-        <Route path="/invest" exact component={Invest} />
+        <Route
+          path="/dashboard"
+          exact
+          component={role === "true" ? AdminDash : Landing}
+        />
+        <Route
+          path="/invest"
+          exact
+          component={role === "true" ? PortfolioAdmin : Invest}
+        />
         <Route path="/wallet" exact component={Wallet} />
+        <Route path="/users" exact component={Users} />
         <Route path="/port-folio" exact component={Portfolio} />
         <Route path="/profile" exact component={Profile} />
         <Route path="/login" exact component={Login} />
         <Route path="/" exact component={Login} />
+        <Route path="/users" exact component={Users} />
         <Route path="/register" exact component={Register} />
       </Switch>
     </Router>

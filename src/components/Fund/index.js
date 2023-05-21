@@ -44,13 +44,17 @@ const Fund = ({ open, setOpen, setLoadTrans }) => {
   const amount = watch("amount");
   const cardType = watch("cardType");
   const cardNumber = watch("cardNumber");
+  const address = watch("address");
   const [fundType, setFundtype] = useState("");
   const [copySuccess, setCopySuccess] = useState("");
   const [step1, setStep1] = useState(true);
   const [step2, setStep2] = useState(false);
+  const [file, setFile] = useState(null);
+  const [imgUrl, setImgUrl] = useState("");
   const [step3, setStep3] = useState(false);
   const [load, setLoad] = useState(false);
   const [step4, setStep4] = useState(false);
+  const [rate, setRate] = useState("");
 
   const showDrawer = () => {
     setOpen(true);
@@ -86,6 +90,13 @@ const Fund = ({ open, setOpen, setLoadTrans }) => {
   };
 
   const makePayment = () => {
+    if (fundType !== "btc") {
+      if (!imgUrl) {
+        error("Error", "Image upload is required");
+        return;
+      }
+    }
+
     setLoad(true);
     axios
       .post(
@@ -95,7 +106,9 @@ const Fund = ({ open, setOpen, setLoadTrans }) => {
           type: fundType === "btc" ? "BTC" : "GIFTCARD",
           gitcardType: cardType,
           gitcardNumber: cardNumber,
-          valueRate: 123.4,
+          cardImage: imgUrl,
+          valueRate: fundType === "btc" ? rate : cardNumber,
+          btcAddress: address,
           id: sessionStorage.getItem("user_id"),
         },
         {
@@ -106,6 +119,7 @@ const Fund = ({ open, setOpen, setLoadTrans }) => {
       )
       .then((res) => {
         setLoad(false);
+        setImgUrl(null);
         if (res.data) {
           success(
             "Success!",
@@ -114,7 +128,7 @@ const Fund = ({ open, setOpen, setLoadTrans }) => {
           );
           setLoadTrans(true);
           onClose();
-        } 
+        }
       })
       .catch((err) => {
         setLoad(false);
@@ -124,6 +138,34 @@ const Fund = ({ open, setOpen, setLoadTrans }) => {
         }
       });
   };
+
+  const onFund = (e) => {
+    axios
+      .post(
+        `${config.baseUrl}btcPrice`,
+        {
+          amount: e.target.value,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => {
+        setLoad(false);
+        if (res.data) {
+          setRate(res.data.rate);
+        }
+      })
+      .catch((err) => {
+        setLoad(false);
+        if (err) {
+          // error("Error!", err?.response?.data?.msg);
+        }
+      });
+  };
+
   return (
     <>
       {load && (
@@ -157,6 +199,7 @@ const Fund = ({ open, setOpen, setLoadTrans }) => {
               className="w-100"
               {...register("amount", {
                 required: "Please input amount you want to fund",
+                onBlur: onFund,
               })}
             />
             <Error errorName={errors.amount} />
@@ -175,7 +218,18 @@ const Fund = ({ open, setOpen, setLoadTrans }) => {
           <form onSubmit={handleSubmit(moveStep2)}>
             <div className="d-flex justify-content-between align-items-center">
               <div>You want to fund ${amount}</div>
-              <div className="text-info">Edit Amount</div>
+              <div
+                className="text-info font-weight-old"
+                onClick={() => {
+                  console.log("clicked");
+                  setStep1(true);
+                  setStep2(false);
+                  setStep3(false);
+                  setValue("amount", null);
+                }}
+              >
+                Edit Amount
+              </div>
             </div>
             <p className="pt-3" style={{ fontWeight: 300 }}>
               Choose payment mode to continue
@@ -239,8 +293,34 @@ const Fund = ({ open, setOpen, setLoadTrans }) => {
             <form onSubmit={handleSubmit(moveStep2)}>
               <div className="d-flex justify-content-between align-items-center">
                 <div>You want to fund ${amount}</div>
-                <div className="text-info">Edit Amount</div>
+                <div
+                  className="text-info"
+                  onClick={() => {
+                    console.log("clicked");
+                    setStep1(true);
+                    setStep2(false);
+                    setStep3(false);
+                    setValue("amount", null);
+                  }}
+                >
+                  Edit Amount
+                </div>
               </div>
+              <br />
+              {fundType === "btc" && (
+                <div>
+                  <Input
+                    label="Input your source BTC wallet Address"
+                    placeholder="Enter Source BTC Wallet Address"
+                    className="w-100"
+                    {...register("address", {
+                      required:
+                        "Please input your btc wallet address you will be sending from",
+                    })}
+                  />
+                  <Error errorName={errors.address} />
+                </div>
+              )}
               {fundType === "btc" ? (
                 <div>
                   <p className="pt-3" style={{ fontWeight: 300 }}>
@@ -248,7 +328,7 @@ const Fund = ({ open, setOpen, setLoadTrans }) => {
                     of BTC to the given address
                   </p>
                   <br />
-                  <p className="font-weight-bold">0.03165945 BTC</p>
+                  <p className="font-weight-bold">{rate} BTC</p>
                   <hr />
                   <p className="font-weight-bold">${amount}</p>
                   <br />
@@ -297,8 +377,7 @@ const Fund = ({ open, setOpen, setLoadTrans }) => {
                   </div>
                 </div>
               ) : (
-                <div className="pt-3">
-                  <br />
+                <div className="">
                   <div className="form-group">
                     <label
                       className="d-block pb-2 text-dark"
@@ -317,8 +396,8 @@ const Fund = ({ open, setOpen, setLoadTrans }) => {
                       <option>Vcard</option>
                       <option>Master Card</option>
                     </select>
+                    <Error errorName={errors.cardType} />
                   </div>
-                  <br />
                   <div className="">
                     <Input
                       label="Gift card Number"
@@ -328,32 +407,46 @@ const Fund = ({ open, setOpen, setLoadTrans }) => {
                         required: "Please input the giftcard number",
                       })}
                     />
-                    <Error errorName={errors.amount} />
+                    <Error errorName={errors.cardNumber} />
                   </div>
                   <br />
-                  <UploadButton
-                    uploader={uploader}
-                    options={options}
-                    onComplete={(files) =>
-                      alert(files.map((x) => x.fileUrl).join("\n"))
-                    }
-                  >
-                    {({ onClick }) => (
-                      <div onClick={onClick} className="upload-ch">
-                        <div className="d-flex justify-content-center align-items-center">
-                          <div>
-                            <div>upload giftcard image</div>
-                            <div className="text-center pt-1">
-                              <img src={gallery} />
+                  {!imgUrl ? (
+                    <UploadButton
+                      uploader={uploader}
+                      options={options}
+                      onComplete={(files) => {
+                        setImgUrl(files[0].originalFile.fileUrl);
+                        setFile(files[0].originalFile.file);
+                      }}
+                    >
+                      {({ onClick }) => (
+                        <div onClick={onClick} className="upload-ch">
+                          <div className="d-flex justify-content-center align-items-center">
+                            <div>
+                              <div>upload giftcard image</div>
+                              <div className="text-center pt-1">
+                                <img src={gallery} />
+                              </div>
                             </div>
                           </div>
                         </div>
+                      )}
+                    </UploadButton>
+                  ) : (
+                    <div>
+                      <div
+                        className="text-right text-danger font-weigh"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          setImgUrl(null);
+                        }}
+                      >
+                        Change Image
                       </div>
-                    )}
-                  </UploadButton>
-
-                  <br />
-                  <br />
+                      <img src={imgUrl} className="w-100" />
+                      <br />
+                    </div>
+                  )}
                 </div>
               )}
               <br />

@@ -51,6 +51,13 @@ export const DashboardContainer = ({ children, pageTitle, subTitle }) => {
     getUser();
   }, []);
 
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     updateInvest();
+  //   }, 10000);
+  //   return () => clearInterval(interval);
+  // }, []);
+
   const getUser = () => {
     setLoad(true);
     axios
@@ -70,9 +77,27 @@ export const DashboardContainer = ({ children, pageTitle, subTitle }) => {
       });
   };
 
+  const updateInvest = () => {
+    axios
+      .get(
+        `${config.baseUrl}initiateWatcher/${sessionStorage.getItem("user_id")}`,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((res) => {
+        setLoad(false);
+      })
+      .catch((err) => {
+        setLoad(false);
+      });
+  };
+
   return (
     <div className="container-fluid">
-       {load && (
+      {load && (
         <MyComponent
           loaderType="cube-transition"
           height="100%"

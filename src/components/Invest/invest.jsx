@@ -13,6 +13,7 @@ import { Uploader } from "uploader"; // Installed by "react-uploader".
 import { UploadButton } from "react-uploader";
 import Close from "../../assets/elite/close.svg";
 import BtcBlack from "../../assets/elite/btc-black.svg";
+import MyComponent from "react-fullpage-custom-loader";
 import BtcPurple from "../../assets/elite/btc-purple.svg";
 import mBlack from "../../assets/elite/mutual-b.svg";
 import mGold from "../../assets/elite/mutual-g.svg";
@@ -28,10 +29,11 @@ const uploader = Uploader({
 });
 const options = { multi: false };
 
-const Fund = ({ open, setOpen, investType }) => {
+const Fund = ({ open, setLoad, setOpen,load, investType }) => {
   const {
     register,
     handleSubmit,
+
     getValues,
     watch,
     control,
@@ -59,8 +61,6 @@ const Fund = ({ open, setOpen, investType }) => {
   const showDrawer = () => {
     setOpen(true);
   };
-
-  const [load, setLoad] = useState(false);
 
   const onClose = () => {
     setOpen(false);
@@ -105,13 +105,15 @@ const Fund = ({ open, setOpen, investType }) => {
         {
           invest_id: investType?._id,
           invest_name: investType?.name,
-          amount: amount,
+          amount: Math.round(amount),
           invest_type: investType?.invest_type,
-          percent:investType?.percent,
+          percent: investType?.percent,
           potentialAmt: amount,
           invest_days: Number(investType?.no_of_days),
-          profit: postAmt,
+          profit: Math.round(postAmt),
+          fullPotentialAmt: Math.round(totalAmt),
           id: sessionStorage.getItem("user_id"),
+          perRate: Math.round(postAmt / investType?.no_of_days),
         },
         {
           headers: {
@@ -130,7 +132,7 @@ const Fund = ({ open, setOpen, investType }) => {
         setLoad(false);
 
         if (err) {
-          // error("Error!", err?.response?.data?.msg);
+          error("Error!", err?.response?.data?.msg);
         }
       });
   };
@@ -153,9 +155,12 @@ const Fund = ({ open, setOpen, investType }) => {
             <img
               src={
                 {
-                  "Gold Plan": Btc,
-                  "Diamond Plan": BtcPurple,
-                  "Silver Plan": BtcBlack,
+                  Gold: Btc,
+                  Diamond: BtcPurple,
+                  Silver: BtcBlack,
+                  Sapphaire: BtcBlack,
+                  Emrald: BtcBlack,
+                  Pearl: BtcBlack,
                 }[investType?.name]
               }
             />
@@ -163,9 +168,12 @@ const Fund = ({ open, setOpen, investType }) => {
             <img
               src={
                 {
-                  "Gold Plan": mGold,
-                  "Diamond Plan": mPurple,
-                  "Silver Plan": mBlack,
+                  Gold: mGold,
+                  Diamond: mPurple,
+                  Silver: mBlack,
+                  Sapphaire: BtcBlack,
+                  Emrald: BtcBlack,
+                  Pearl: BtcBlack,
                 }[investType?.name]
               }
             />
@@ -180,7 +188,9 @@ const Fund = ({ open, setOpen, investType }) => {
                 {" "}
                 <img src={warn} />
               </div>
-              <div className="pl-3">minimum investment is $200.00</div>
+              <div className="pl-3">
+                minimum investment is ${investType?.min}
+              </div>
             </div>
           </div>
         </div>
@@ -218,13 +228,13 @@ const Fund = ({ open, setOpen, investType }) => {
               <br />
               <div className="d-flex justify-content-between align-items-center">
                 <div>Potential returns:</div>
-                <div> ${postAmt ? postAmt : 0}</div>
+                <div> ${Math.round(postAmt) ? Math.round(postAmt) : 0}</div>
               </div>
               <br />
               <div className="d-flex justify-content-between align-items-center">
                 <div>Potential profit:</div>
                 <div>
-                  ${amount} - ${totalAmt ? totalAmt : 0}
+                  ${amount} - ${Math.round(totalAmt) ? Math.round(totalAmt) : 0}
                 </div>
               </div>
             </div>
@@ -234,6 +244,7 @@ const Fund = ({ open, setOpen, investType }) => {
           <br />
           <Button
             text="Invest now"
+            isDisabled={load}
             onClick={handleSubmit(onInvest)}
             style={{ borderRadius: "5px" }}
             className="dark w-100"

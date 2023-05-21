@@ -17,9 +17,9 @@ export const TableHeader = ({ data }) => {
           <th></th>
           <th>Ref</th>
           <th>Date</th>
-          <th>Action taken</th>
-          <th>Value in USD</th>
-          <th>Value in BTC</th>
+          <th>Action</th>
+          <th>Type</th>
+          <th>Amount</th>
           <th>Status</th>
         </tr>
 
@@ -29,20 +29,25 @@ export const TableHeader = ({ data }) => {
               <td>
                 <img
                   src={
-                    data.payment_type === "BTC Deposit" ||
-                    data.payment_type === "GiftCard Deposit"
+                    data.txn_type === "Credit" 
                       ? inflow
                       : ouflow
                   }
                 />
               </td>
-              <td>{data.payment_ref}</td>
-              <td>{moment(data.date).format("MMMM Do YYYY, h:mm:ss a")}</td>
-              <td>{data.payment_type}</td>
+              <td>{data.trans_ref}</td>
+              <td>{moment(data.date).format("MMMM Do YYYY")}</td>
+              <td>{data.trans_type}</td>
+              <td
+                className={
+                  data.txn_type === "Credit" ? "text-success" : "text-danger"
+                }
+              >
+                {data.txn_type}
+              </td>
               <td>
                 ${data.amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}
               </td>
-              <td>{data.btc_rate_value}</td>
               <td>
                 {
                   {
@@ -52,7 +57,7 @@ export const TableHeader = ({ data }) => {
                       <div style={{ color: "#089430" }}>Completed</div>
                     ),
                     Rejected: <div style={{ color: "#d72f2f" }}>Rejected</div>,
-                  }[data.payment_status]
+                  }[data.trans_status]
                 }
               </td>
             </tr>
