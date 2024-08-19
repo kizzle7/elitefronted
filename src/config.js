@@ -1,5 +1,5 @@
 export default {
-    baseUrl: 'https://bootong-api.herokuapp.com/api/'
+    baseUrl: 'https://4market-dayz-back.vercel.app/api/'
   };
    
   
