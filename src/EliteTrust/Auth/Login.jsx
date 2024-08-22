@@ -50,7 +50,7 @@ export default function Index(props) {
         setLoad(false);
 
         if (err) {
-          error("Error!", err?.response?.data?.msg);
+          error("Error!", err?.response?.data?.message);
         }
       });
   };
