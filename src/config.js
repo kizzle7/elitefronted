@@ -1,5 +1,5 @@
 export default {
-  baseUrl: "https://eliterust-back.vercel.app/api/",
+  baseUrl: "https://new-back-elite.vercel.app/api/",
   };
    
   
