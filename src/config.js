@@ -1,5 +1,5 @@
 export default {
-  baseUrl: "https://new-back-elite.vercel.app/api/",
+  baseUrl: "http://localhost:5001/api/",
   };
    
   

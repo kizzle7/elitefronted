@@ -6,10 +6,11 @@ import Portfolio from "../EliteTrust/Client/Portfilio";
 import Profile from "../EliteTrust/Client/Settings";
 import Login from "../EliteTrust/Auth/Login";
 import Register from "../EliteTrust/Auth/Register";
-
+import EmailConfirmation from "../EliteTrust/Auth/Email";
 import AdminDash from "../EliteTrust/Client/Dashboard/admin-dashboard";
 import PortfolioAdmin from "../EliteTrust/Client/Invest/admin-invest";
 import Users from "../EliteTrust/Client/Wallett/users";
+import VerifyPhone from "../EliteTrust/Auth/VerifyPhone";
 
 export default function AppRouter(props) {
   const role = sessionStorage.getItem("is_Admin");
@@ -34,7 +35,10 @@ export default function AppRouter(props) {
         <Route path="/login" exact component={Login} />
         <Route path="/" exact component={Login} />
         <Route path="/users" exact component={Users} />
+        <Route path="/email-verification/:id" exact component={EmailConfirmation} />
         <Route path="/register" exact component={Register} />
+        <Route path="/verify-phone" exact component={VerifyPhone} />
+
       </Switch>
     </Router>
   );

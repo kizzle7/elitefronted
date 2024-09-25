@@ -35,13 +35,25 @@ export default function Index(props) {
       .then((res) => {
         setLoad(false);
         if (res.data.user?.token) {
-          success("Success!", "Login Successful!");
-          sessionStorage.setItem("token", res.data.user?.token);
-          sessionStorage.setItem('user_id', res.data.user?.id)
-          sessionStorage.setItem('is_Admin', res.data.user?.isAdmin)
-          setTimeout(() => {
-            window.location.href = "/dashboard";
-          }, 1000);
+          if (res.data.user.status) {
+            if (res.data.user.phone_status) {
+              success("Success!", "Login Successful!");
+              sessionStorage.setItem("token", res.data.user?.token);
+              sessionStorage.setItem('user_id', res.data.user?.id)
+              sessionStorage.setItem('is_Admin', res.data.user?.isAdmin)
+              setTimeout(() => {
+                window.location.href = "/dashboard";
+              }, 1000);
+            }
+            else {
+              window.location.href = "/verify-phone";
+
+            }
+          }
+          else {
+            error("Error!", "Email not verified yet");
+
+          }
         } else {
           error("Error!", "Something went wrong");
         }

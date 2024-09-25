@@ -53,14 +53,14 @@ export default function Index(props) {
         address: null,
         phone: data.phone,
         password: data.password,
-        isAdmin: false,
+        isAdmin: false
       })
       .then((res) => {
         setLoad(false);
         if (res.data?.token) {
           // sessionStorage.setItem("token", res.data?.token);
-          // sessionStorage.setItem('user_id', res.data.newUser?._id)
-          success("Success!", "Registration Successful!");
+          sessionStorage.setItem('user_id', res.data.newUser?._id)
+          success("Success!", "Registration Successful!. An invite registration link has been sent to " + data.email + " ,Activate your account by clicking on the link in the mail body",);
           setTimeout(() => {
             history.push("/login");
           }, 1000);
