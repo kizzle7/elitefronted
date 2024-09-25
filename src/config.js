@@ -1,5 +1,5 @@
 export default {
-  baseUrl: "http://localhost:5001/api/",
+  baseUrl: "https://test-appyz-1eb26e4e8842.herokuapp.com/api/",
   };
    
   
