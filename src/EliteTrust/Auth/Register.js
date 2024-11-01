@@ -215,7 +215,7 @@ export default function Index(props) {
 
               <br />
                   <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={true}>
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={true} />
   <label class="form-check-label" for="flexCheckDefault">
     You agree to recieve automated Transactional messages. Terms and Privacy policy can be found at <a href="#">https://https://elitestrustinvestment.com/terms</a>. You made recieve up to 5 msgs/mo. Txt and data rates may apply.
   Reply STOP to stop or HELP for help.
